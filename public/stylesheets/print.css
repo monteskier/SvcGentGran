@@ -1,0 +1,31 @@
+@page { margin: 0; }
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+#tarjeta{
+  position:absolute;
+  display:flex;
+  justify-content:space-around;
+  font-size: 8px;
+  flex-direction:column;
+  width:325px;
+  height: 210px;
+  align-items:center;
+  border-style: solid;
+  border-width: thin;
+}
+button{
+  display: none;
+  visibility: hidden;
+}
+input{
+border: none;
+background-color: #33FFCC;
+}
+head, h1, title, link, meta, style, script {
+	display: none;
+}
