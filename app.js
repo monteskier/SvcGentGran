@@ -8,6 +8,7 @@ var session = require("express-session");
 var monk = require('monk');
 var db = monk("localhost:27017/gentGran");
 var session = require("express-session");
+var fileUpload = require('express-fileupload');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -22,6 +23,7 @@ app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(fileUpload());
 app.use(session({
   secret: 'Loquesea2017',
   cookie:{}
