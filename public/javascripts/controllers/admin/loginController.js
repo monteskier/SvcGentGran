@@ -1,6 +1,5 @@
 angular.module("gentGran")
 .controller("LoginController", ['$scope', '$location', '$http', '$rootScope', '$timeout', function($scope, $location, $http, $rootScope, $timeout ){
-  console.log("ahuries de veure el loginform aqui");
   $scope.login = function(){
     if($rootScope.login == 'login'){
       $http({
@@ -12,8 +11,8 @@ angular.module("gentGran")
           $rootScope.msg = results.data.msg;
           $rootScope.flag=true;
           $rootScope.session=results.data.session;
-          $rootScope.accio="logout";
-          $location.path('llista');
+          $rootScope.login="logout";
+          //$location.path('llista');
           $timeout(setTimeout,3000);
         }else{
           $rootScope.msg = results.data.msg;

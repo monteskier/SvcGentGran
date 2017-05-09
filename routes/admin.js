@@ -29,4 +29,33 @@ router.post('/login', function(req, res, next){
 
 });
 });
+
+router.post('/save', function(req, res, next){
+  if(req.files){
+    return res.status(400).send("No hi han arxius per pujar");
+  }
+  var date= new Date();
+  var db = req.db;
+  var collection = db.get("posts");
+  collection.insert({
+    "title":req.param("title"),
+    "description":req.param("description"),
+    "img":'img/'+req.param("title")+',jpg',
+    "body":req.param("body"),
+    "date_pub": date.getDate()
+  }, function(err,docs){
+    if(err){
+      return res.json({"msg":"Error en desar l'article."});
+    }
+    var samplefile = req.files.samplefile;
+    samplefile.mv('public/img/'+req.param("title")+'.jpg', function(err){
+      if(err){
+        return res.status(500).send(err);
+      }
+      res.json({"msg":"S'ha dessat la publicació correctament"});
+    });
+  });
+});
+
+
 module.exports = router;
