@@ -1,5 +1,5 @@
-<div class="jumbotron" id="container">
-  <form>
+
+<form id="contenedo" method="post"  enctype="multipart/form-data">
     <div class="form-group">
       <label for="title">* Titol:</label>
       <input type="text" class="form-control" id="title" ng-model="post.title" placeholder="Titol de la noticia" />
@@ -14,15 +14,19 @@
       <small class="help-block">Si tens molt contingut no peteixis, a la 4ª linea posarem un readmore...</small>
     </div>
     <div class="form-group">
-      <label for="file"></label>
-      <input type="file" class="form-control-file" id="file" ng-model="post.sampleFile" placeholder="" />
+      <label for="imgFile">Imatge:</label>
+      <input type="file" class="form-control-file" id="fileImg" ng-model="sampleImage" accept="'image/jpg'" placeholder="" />
       <small class="help-block">Extensió permessa solament "jpg".</small>
+    </div>
+    <div class="form-group">
+      <label for="imgFile">Arxiu:</label>
+      <input type="file" class="form-control-file" id="file" ng-model="sampleFile" placeholder="" />
+      <small class="help-block">Extensió permessa solament "pdf".</small>
     </div>
     <div class="form-check">
       <label for="form-check-label"></label>
       <input type="checkbox" class="form-check-input" id="actiu" ng-model="post.active" />
       <small class="help-block">Actiu.</small>
     </div>
-    <button type="button" ng-click="nou()" value="Desar">Desar</button>
-  </form>
-</div>
+    <button type="submit" ng-click="desar()" value="Desar">Desar</button>
+</form>

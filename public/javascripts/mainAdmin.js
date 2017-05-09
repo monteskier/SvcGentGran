@@ -29,11 +29,11 @@ angularApp.controller('MainAdminController', function($scope, $location, $rootSc
 
   $routeProvider.when('/nou',{
     templateUrl:"templates/admin/nou.html",
-    controllers:"NouController"
+    controller:"NouController"
   });
   $routeProvider.when('/editar',{
     templateUrl:"templates/admin/editar.html",
-    controllers:"EditarController"
+    controller:"EditarController"
   });
   $routeProvider.when('/login',{
     templateUrl:"templates/admin/login.html",

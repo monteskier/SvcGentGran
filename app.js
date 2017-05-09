@@ -9,6 +9,7 @@ var monk = require('monk');
 var db = monk("localhost:27017/gentGran");
 var session = require("express-session");
 var fileUpload = require('express-fileupload');
+var moment = require("moment");
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next){
     req.db = db;
-
+    req.moment = moment;
     next();
 });
 
