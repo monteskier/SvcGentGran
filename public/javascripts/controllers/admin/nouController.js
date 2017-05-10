@@ -3,16 +3,19 @@ angular.module("gentGran")
 
   $scope.desar = function(){
   console.log("Bien hasta aqui 2");
+  var image = document.getElementById("fileImg").files;
+  var file = document.getElementById("file").files;
   var fd = new FormData();
-  fd.append('post', $scope.post);
-  fd.append('image', $scope.sampleImage);
-  fd.append('file', $scope.sampleFile);
-  console.log(fd);
+  fd.append('data',angular.toJson($scope.post));
+  fd.append('image', image[0]);
+  fd.append('file', file[0]);
+  console.log($scope.post);
 
   $http({
     method:"POST",
     url:"admin/save",
     data:fd,
+    transformRequest: angular.identity,
     headers: { 'Content-Type': undefined}
   }).then(function(results){
     $rootScope.flag=true;

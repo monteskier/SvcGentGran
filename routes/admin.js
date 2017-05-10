@@ -31,18 +31,21 @@ router.post('/login', function(req, res, next){
 });
 
 router.post('/save', function(req, res, next){
-  if(req.files){
+  if(!req.files){
     return res.status(400).send("No hi han arxius per pujar");
   }
   var db = req.db;
   var collection = db.get("posts");
-  var body = req.body;
+  var post = req.body.data;
 
+  console.log("body de la solicitud ="+post);
+
+console.log(post[0]);
   collection.insert({
     "title":post.title,
     "description":post.description,
-    "img":'images/'+post.title+'.jpg',
-    "file":'files/'+post.title+'.pdf',
+    "img":'upload/images/'+post.title+'.jpg',
+    "file":'upload/files/'+post.title+'.pdf',
     "body":post.body,
     "activate":post.active,
     "date_pub": req.moment(Date.now()).format('MM/DD/YYYY')
@@ -51,22 +54,24 @@ router.post('/save', function(req, res, next){
       return res.json({"msg":err.message});
     }
 
-    var file = req.files.sampleImage;
-    var img = req.files.sampleFile;
+    var file = req.files.file;
+    var img = req.files.image;
 
     console.log(img+" and "+file);
 
-      img.mv('public/images/'+req.param("title")+'.jpg', function(err){
+    img.mv('public/upload/images/'+post.title+'.jpg', function(err){
       if(err){
-        return res.status(500).send(err);
+        res.json({"msg":err});
       }
     });
-    file.mv('public/files/'+req.param("title")+'.jpg', function(err){
+    file.mv('public/upload/files/'+post.title+'.pdf', function(err){
       if(err){
-        return res.status(500).send(err);
+        res.json({"msg":err});
       }
-      res.render("admin/llista",{msg:"Dessat correctament"});
+
     });
     });
+    res.json({msg:"Dessat correctament"});
+    return 0;
   });
 module.exports = router;
