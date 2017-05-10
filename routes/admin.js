@@ -30,6 +30,18 @@ router.post('/login', function(req, res, next){
 });
 });
 
+router.get("/llista",function(req, res, next){
+  var db = req.db;
+  var collection = db.get("posts");
+
+  collection.find({},{},function(err,docs){
+    if(err){
+      res.json({"msg":"error en recuperar els articles"});
+    }
+    res.send(docs);
+  });
+});
+
 router.post('/save', function(req, res, next){
   if(!req.files){
     return res.status(400).send("No hi han arxius per pujar");
@@ -37,10 +49,9 @@ router.post('/save', function(req, res, next){
   var db = req.db;
   var collection = db.get("posts");
   var post = req.body.data;
-
+  post = JSON.parse(post);
   console.log("body de la solicitud ="+post);
 
-console.log(post[0]);
   collection.insert({
     "title":post.title,
     "description":post.description,

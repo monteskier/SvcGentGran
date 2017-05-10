@@ -1,1 +1,16 @@
-<div>{{msg}}</div>
+<div ng-controller="LlistaController" ng-init="obtindreResultats()">
+<table>
+  <tr>
+    <th>Accio</th><th>Title</th><th>Descripcio</th><th>image</th><th>Actiu</th><th>Data</th>
+  </tr>
+  <tr ng-repeat="post in posts">
+    <td><span ng-click="editar(resultat._id)" >Editar</span>
+    <span style="color:red; cursor:pointer;" ng-click="eliminar(resultat._id)">Eliminar</span></td>
+    <td>{{post.title}}</td>
+    <td>{{post.description}}</td>
+    <td><img scr="post.img"></img></td>
+    <td>{{post.activate}}</td>
+    <td>{{post.date_pub}}</td>
+  </tr>
+</table>
+</div>
