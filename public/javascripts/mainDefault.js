@@ -1,6 +1,12 @@
 var angularApp = angular.module('gentGran', ['ui.bootstrap','ngRoute']);
 angularApp.controller('MainDefaultController', ['$scope', '$location', '$rootScope','$http', '$timeout', function($scope, $location, $rootScope, $http, $timeout){
   'use strict';
+  $scope.oneAtATime = true;
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
+  $scope.oneAtATime = true;
 
   $scope.initApp = function(){
     $rootScope.flag = false;

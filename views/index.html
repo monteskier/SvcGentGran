@@ -20,9 +20,10 @@
         <small>data:{{post.date_pub}}</small>
       </div>
       <div id="postItem">
-        <p class="description">{{post.description}}</p>
-        <p class="read_more">{{post.body}}</p>
-      </div>
+        <p>{{post.description}}</p>
+        <div uib-accordion-group class="panel-default" heading="Read More">
+         {{post.body}}
+       </div>
     </div>
   </div>
   </body>
