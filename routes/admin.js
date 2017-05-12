@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var ObjectID = require('mongodb').ObjectID;
+const fs = require('fs');
 
-function login(req){
-  if(req.session==true){
+function login(req){//Reviso que haya una session activada , cada ruta lo comprueva, antes de comenzar el codigo.
+  if(req.session.session==true){
     return true;
   }else return false;
 }
@@ -12,6 +13,80 @@ function login(req){
 router.get('/', function(req, res, next) {
   res.render('admin/index', { title: 'Express' });
 });
+router.post('/getPost', function(req,res,err){//obtiene todos los parametros de un Post i los devuelve al templete editar.html
+    if(login(req)){
+
+      var id = req.param("id");
+      var db = req.db;
+      var collection = db.get("posts");
+      var objId = new ObjectID(req.param("id"));
+      collection.findOne({_id:objId},{}, function(err, doc){
+        if(err){
+          res.json({"msg":"Error al obtenir el registre err ="+err.message});
+        }
+        res.json({"msg":"Dades obtingudes","data":doc});
+      });
+    }else{
+      res.json({"msg":"Has de iniciar sessió per efectuar aquesta acció"});
+    }
+router.post("/editPost", function(req, res, next){// Muy parecido al add pero miramos si hay ficheros adjutnos, porque en caso de que no allan, no actualizaremos los valores img ni file
+  if(login(req)){
+
+    var db = req.db;
+    var collection = db.get("posts");
+    var post = req.body.data;
+    post = JSON.parse(post);
+    var id = post._id;
+    console.log(id);
+    var objId =  new ObjectID(id);
+      collection.update({_id:objId},{$set:{
+        "description":post.description,
+        "body":post.body,
+        "activate":post.active,
+        "date_pub": req.moment(Date.now()).format('MM/DD/YYYY')
+      }},function(err, docs){
+            if(err){
+              res.json({"msg":"No sa pogut actualitzar l'article, err ="+ err.message});
+            }
+            res.json({"msg":"S'ha actualizat correctament", "data":docs});
+      });
+  }else{
+      res.json({"msg":"Has de iniciar sessió per efectuar aquesta acció"});
+  }
+
+});
+
+});
+router.post('/drop', function(req, res, next){
+  if(login(req)){
+    var db = req.db;
+    var collection = db.get("posts");
+    var id = req.body.id;
+    var objId =  new ObjectID(id);
+    console.log(objId);
+    collection.remove({_id: objId},function(err, doc){
+    if(err){
+      res.json({"msg":"No s'ha pogut eliminar el article, err = " + err.message});
+    }
+    try{
+      var file = "public/"+req.param("file");
+      var img = "public/"+req.param("img");
+      fs.unlink(file);
+      fs.unlink(img);
+    }catch(err){
+      res.json({"msg":"No s'ha pogut eliminar el article, err = " + err.message});
+    }
+    res.json({"msg":"S'ha eliminat l'article correctament = "+doc });
+  });
+}else{
+  res.json({"msg":"Has de iniciar sessió per efectuar aquesta acció"});
+}
+});
+router.get('/logout', function(req, res, next){
+  req.session.destroy();
+  res.json({"msg":"S'ha tencat la sessió correctament.", "session":false});
+});
+
 router.post('/login', function(req, res, next){
   var name = req.param("name");
   var password = req.param("password");
@@ -31,6 +106,7 @@ router.post('/login', function(req, res, next){
 });
 
 router.get("/llista",function(req, res, next){
+  if(login(req)){
   var db = req.db;
   var collection = db.get("posts");
 
@@ -40,49 +116,56 @@ router.get("/llista",function(req, res, next){
     }
     res.send(docs);
   });
+}else{
+  res.json({"msg":"Has de iniciar sessió per efectuar aquesta acció"});
+}
 });
 
 router.post('/save', function(req, res, next){
-  if(!req.files){
-    return res.status(400).send("No hi han arxius per pujar");
-  }
-  var db = req.db;
-  var collection = db.get("posts");
-  var post = req.body.data;
-  post = JSON.parse(post);
-  console.log("body de la solicitud ="+post);
-
-  collection.insert({
-    "title":post.title,
-    "description":post.description,
-    "img":'upload/images/'+post.title+'.jpg',
-    "file":'upload/files/'+post.title+'.pdf',
-    "body":post.body,
-    "activate":post.active,
-    "date_pub": req.moment(Date.now()).format('MM/DD/YYYY')
-  }, function(err,docs){
-    if(err){
-      return res.json({"msg":err.message});
+  if(login(req)){
+    if(!req.files){
+      return res.status(400).send("No hi han arxius per pujar");
     }
+    var db = req.db;
+    var collection = db.get("posts");
+    var post = req.body.data;
+    post = JSON.parse(post);
+    console.log("body de la solicitud ="+post);
 
-    var file = req.files.file;
-    var img = req.files.image;
-
-    console.log(img+" and "+file);
-
-    img.mv('public/upload/images/'+post.title+'.jpg', function(err){
+    collection.insert({
+      "title":post.title,
+      "description":post.description,
+      "img":'upload/images/'+post.title+'.jpg',
+      "file":'upload/files/'+post.title+'.pdf',
+      "body":post.body,
+      "activate":post.active,
+      "date_pub": req.moment(Date.now()).format('MM/DD/YYYY')
+    }, function(err,docs){
       if(err){
-        res.json({"msg":err});
-      }
-    });
-    file.mv('public/upload/files/'+post.title+'.pdf', function(err){
-      if(err){
-        res.json({"msg":err});
+        return res.json({"msg":err.message});
       }
 
-    });
-    });
-    res.json({msg:"Dessat correctament"});
-    return 0;
+      var file = req.files.file;
+      var img = req.files.image;
+
+      console.log(img+" and "+file);
+
+      img.mv('public/upload/images/'+post.title+'.jpg', function(err){
+        if(err){
+          res.json({"msg":err});
+        }
+      });
+      file.mv('public/upload/files/'+post.title+'.pdf', function(err){
+        if(err){
+          res.json({"msg":err});
+        }
+
+      });
+      });
+      res.json({msg:"Dessat correctament"});
+      return 0;
+    }else{
+      res.json({"msg":"Has de iniciar sessió per efectuar aquesta acció"});
+    }
   });
 module.exports = router;

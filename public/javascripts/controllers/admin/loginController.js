@@ -1,5 +1,21 @@
 angular.module("gentGran")
 .controller("LoginController", ['$scope', '$location', '$http', '$rootScope', '$timeout', function($scope, $location, $http, $rootScope, $timeout ){
+  $scope.logout = function(){
+
+  if($rootScope.login=="logout"){
+    $http({
+      method:"get",
+      url:"admin/logout"
+    }).then(function(results){
+      $rootScope.msg = results.data.msg;
+      $rootScope.flag=false;
+      $rootScope.login="login";
+      $rootScope.session=results.data.session;
+      $location.path("/admin");
+      $timeout(setTimeout,3000);
+    });
+  }
+};
   $scope.login = function(){
     if($rootScope.login == 'login'){
       $http({
@@ -12,7 +28,7 @@ angular.module("gentGran")
           $rootScope.flag=true;
           $rootScope.session=results.data.session;
           $rootScope.login="logout";
-          //$location.path('llista');
+          $location.path('llista');
           $timeout(setTimeout,3000);
         }else{
           $rootScope.msg = results.data.msg;

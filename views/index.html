@@ -9,11 +9,22 @@
     <script src="lib/angular.min.js"></script>
     <script src="lib/ui-bootstrap.js"></script>
     <script src="lib/angular-route.js"></script>
-    <script src="javascripts/main.js"></script>
   </head>
-  <body>
-    <h1>AjSVC</h1>
-    <p>Poble Amigable de la Gent Gran</p>
-  </body>
 
+  <body ng-app="gentGran" ng-controller="MainDefaultController" ng-init="initApp()">
+  <div id="containerPost">
+    <div ng-repeat="post in posts" id="post">
+      <div id="postItem">
+        <h4>{{post.title}}</h4>
+        <p><img src="{{post.img}}" with="150px" height="100px"></img></p>
+        <small>data:{{post.date_pub}}</small>
+      </div>
+      <div id="postItem">
+        <p class="description">{{post.description}}</p>
+        <p class="read_more">{{post.body}}</p>
+      </div>
+    </div>
+  </div>
+  </body>
+  <script src="javascripts/mainDefault.js"></script>
 </html>

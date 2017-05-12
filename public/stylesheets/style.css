@@ -6,3 +6,30 @@ body {
 a {
   color: #00B7FF;
 }
+table {
+  border-collapse: separate;
+  border-spacing: 50px 0;
+}
+
+td {
+  padding: 10px 0;
+}
+
+#containerPost{
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-flow:column;
+  justify-content: flex-start;
+  width: 80%;
+
+  }#post{
+    display: flex;
+    flex-flow:row;
+    justify-content: center;
+    width: 100%;
+  }#postItem{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+  }

@@ -1,4 +1,4 @@
-<div id="loginForm">
+<div id="loginForm" ng-controller="LoginController" ng-init="logout()">
   <form>
     User:<input type="text" ng-model="name"/>
     Password:<input type="password" ng-model="password" />

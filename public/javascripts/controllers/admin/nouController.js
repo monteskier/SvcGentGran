@@ -9,8 +9,7 @@ angular.module("gentGran")
   fd.append('data',angular.toJson($scope.post));
   fd.append('image', image[0]);
   fd.append('file', file[0]);
-  console.log($scope.post);
-
+  
   $http({
     method:"POST",
     url:"admin/save",
@@ -20,8 +19,8 @@ angular.module("gentGran")
   }).then(function(results){
     $rootScope.flag=true;
     $rootScope.msg = results.data.msg;
-    //$location.path('llista');
     $timeout(setTimeout,3000);
+    $location.path('/llista');
   });
 
 };

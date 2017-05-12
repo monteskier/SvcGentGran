@@ -1,0 +1,27 @@
+
+<div ng-controller="EditarController" ng-init="carregarDades()">
+<form id="contenedo" method="post"  enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="title">* Titol:{{post.title}}</label>
+      <input type="text" class="form-control" id="title" ng-model="post.title" placeholder="Introdueix el titol" />
+    </div>
+    <div class="form-group">
+      <label for="description">Descripció:</label>
+      <textarea class="form-control" required id="description" ng-model="post.description" placeholder="Breu descripcio del contingut de la noticia"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="body">Noticia:</label>
+      <textarea class="form-control" required id="body" ng-model="post.body" placeholder="Cos de la noticia"></textarea>
+      <small class="help-block">Si tens molt contingut no peteixis, a la 4ª linea posarem un readmore...</small>
+    </div>
+    <div class="form-check">
+      <label for="form-check-label"></label>
+      <input type="checkbox" class="form-check-input" id="actiu" ng-model="post.active"/>
+      <small class="help-block">Actiu.</small>
+    </div>
+    <div class="form-group">
+      <label for="title">* Imatge:{{post.img}}</label>
+      <label for="title">* Fitxer Adjunt:{{post.file}}</label>
+    </div>
+    <button type="submit" ng-click="editar()" value="Desar">Editar</button>
+</form>
