@@ -5,12 +5,12 @@
   </tr>
   <tr ng-repeat="post in posts">
     <td><span ng-click="editar(post._id)" style="color:blue; cursor:pointer;" >Editar</span>
-    <span style="color:red; cursor:pointer;" ng-click="eliminar(post._id, post.img, post.file)">Eliminar</span></td>
+    <span style="color:red; cursor:pointer;" ng-click="eliminar(post._id, post.img, post.file, post.file2)">Eliminar</span></td>
     <td>{{post.title}}</td>
     <td><img src="{{post.img}}" width="50px" height="50px"></img></td>
     <td>{{post.activate}}</td>
     <td>{{post.date_pub}}</td>
-    
+
   </tr>
 </table>
 </div>

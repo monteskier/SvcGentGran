@@ -5,11 +5,13 @@ angular.module("gentGran")
   console.log("Bien hasta aqui 2");
   var image = document.getElementById("fileImg").files;
   var file = document.getElementById("file").files;
+  var file2 = document.getElementById("file2").files;
   var fd = new FormData();
   fd.append('data',angular.toJson($scope.post));
   fd.append('image', image[0]);
   fd.append('file', file[0]);
-  
+  fd.append('file2', file2[0]);
+
   $http({
     method:"POST",
     url:"admin/save",

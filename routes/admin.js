@@ -40,6 +40,7 @@ router.post("/editPost", function(req, res, next){// Muy parecido al add pero mi
     console.log(id);
     var objId =  new ObjectID(id);
       collection.update({_id:objId},{$set:{
+        "title":post.title,
         "description":post.description,
         "body":post.body,
         "activate":post.active,
@@ -71,10 +72,12 @@ router.post('/drop', function(req, res, next){
     try{
       var file = "public/"+req.param("file");
       var img = "public/"+req.param("img");
+      var file2 = "public/"+req.param("file2");
       fs.unlink(file);
       fs.unlink(img);
+      fs.unlink(file2);
     }catch(err){
-      res.json({"msg":"No s'ha pogut eliminar el article, err = " + err.message});
+      res.json({"msg":"No s'ha pogut eliminar el fitxers, possiblement peque no hi han... err = " + err.message});
     }
     res.json({"msg":"S'ha eliminat l'article correctament = "+doc });
   });
@@ -129,38 +132,67 @@ router.post('/save', function(req, res, next){
     var db = req.db;
     var collection = db.get("posts");
     var post = req.body.data;
+    if(req.files.file!==undefined){
+      var file = req.files.file;
+    }else{
+      var file = {"name":undefined};
+      console.log(file);
+    }
+    if(req.files.file2!==undefined){
+      var file2 = req.files.file2;
+    }else{
+      var file2 = {"name":undefined};
+      console.log(file2);
+    }
+    if(req.files.image!==undefined){
+      var img = req.files.image;
+    }else{
+      var img = {"name":undefined};
+      console.log(img);
+    }
+
     post = JSON.parse(post);
     console.log("body de la solicitud ="+post);
 
     collection.insert({
       "title":post.title,
       "description":post.description,
-      "img":'upload/images/'+post.title+'.jpg',
-      "file":'upload/files/'+post.title+'.pdf',
+      "img":'upload/images/'+ (img.name !== undefined ? img.name : "undefined"),
+      "file":'upload/files/'+ (file.name !== undefined ? file.name : "undefined"),
+      "file2":'upload/files/'+ (file2.name !== undefined ? file2.name : "undefined"),
       "body":post.body,
       "activate":post.active,
-      "date_pub": req.moment(Date.now()).format('MM/DD/YYYY')
+      "date_pub": req.moment(Date.now()).format('MM/DD/YYYY'),
+      "filename":file.name,
+      "filename2":file2.name,
+      "imgname":img.name,
     }, function(err,docs){
       if(err){
         return res.json({"msg":err.message});
       }
 
-      var file = req.files.file;
-      var img = req.files.image;
-
-      console.log(img+" and "+file);
-
-      img.mv('public/upload/images/'+post.title+'.jpg', function(err){
-        if(err){
-          res.json({"msg":err});
-        }
-      });
-      file.mv('public/upload/files/'+post.title+'.pdf', function(err){
-        if(err){
-          res.json({"msg":err});
-        }
-
-      });
+      console.log(img.name+" and "+file);
+      if(img.name!=undefined){
+        img.mv('public/upload/images/'+img.name, function(err){
+          if(err){
+            res.json({"msg":err});
+          }
+        });
+      }
+      if(file2.name!=undefined){
+        file2.mv('public/upload/files/'+file2.name, function(err){
+          if(err){
+            res.json({"msg":err});
+          }
+        });
+      }
+      if(file.name!=undefined){
+        file.mv('public/upload/files/'+file.name, function(err){
+          if(err){
+            res.json({"msg":err});
+          }
+        });
+      }
       });
       res.json({msg:"Dessat correctament"});
       return 0;

@@ -12,11 +12,11 @@ angular.module("gentGran")
   $rootScope.objId = id;
   $location.path("/editar");
   }
-  $scope.eliminar = function(id, img=null, file=null){
+  $scope.eliminar = function(id, img=null, file=null, file2=null){
     $http({
       method:"POST",
       url:"admin/drop",
-      data:{"id":id,"img":img,"file":file}
+      data:{"id":id,"img":img,"file":file, "file2":file2}
     }).then(function(request){
       $rootScope.msg = request.data.msg;
       $rootScope.flag=true;
