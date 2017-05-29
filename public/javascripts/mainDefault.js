@@ -4,7 +4,8 @@ angularApp.controller('MainDefaultController', ['$scope', '$location', '$rootSco
 
   $scope.oneAtATime =false;
   $scope.totalItems = 0;
-  $scope.currentPage = 0;
+  $scope.currentPage = 1;
+  $scope.itemsPerPage =  5;
   $scope.maxSize = 5;
   $scope.status = {
     isCustomHeaderOpen: false,
