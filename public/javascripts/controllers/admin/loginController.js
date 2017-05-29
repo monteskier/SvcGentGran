@@ -11,7 +11,7 @@ angular.module("gentGran")
       $rootScope.flag=false;
       $rootScope.login="login";
       $rootScope.session=results.data.session;
-      $location.path("/");
+      window.location.replace('/');
       $timeout(setTimeout,3000);
     });
   }
