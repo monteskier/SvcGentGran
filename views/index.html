@@ -37,14 +37,15 @@
             <small><a href="{{post.file}}">{{post.filename}}</a></small><br>
             <small><a href="{{post.file2}}">{{post.filename2}}</a></small>
           </div>
+          <!--<button class="btn-primary" ng-click="ferGran(post._id)">Veure-ho</button>-->
         </uib-accordion>
       </div>
     </div>
     <ul class="center" uib-pagination total-items="totalItems" ng-model="currentPage" boundary-links="true" items-per-page="itemsPerPage" ng-change="pageChanged()"></ul uib-pagination>
   </div>
-  <footer class="footer">Plaça de l'Ajuntament, 10 - 08295 Sant Vicenç de Castellet | T. 936 930 611 - F. 936 930 610 - <strong>svcastellet@svc.cat</strong>.
-    <img src="lib/img/gentGran.jpg"></img>
-  </footer>
+  <footer class="footer">Plaça de l'Ajuntament, 10 - 08295 Sant Vicenç de Castellet | T. 936 930 611 - F. 936 930 610 - <strong>svcastellet@svc.cat</strong>.</footer>
+    <section class="center"><small>Amb la col·lavoració de:</small><img src="lib/img/gentGran.jpg"></img></center>
   </body>
   <script src="javascripts/mainDefault.js"></script>
+  <script src="javascripts/controllers/public/detallController.js"></script>
 </html>

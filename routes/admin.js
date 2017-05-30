@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 router.post('/getPost', function(req,res,err){//obtiene todos los parametros de un Post i los devuelve al templete editar.html
     if(login(req)){
 
-      var id = req.param("id");
+
       var db = req.db;
       var collection = db.get("posts");
       var objId = new ObjectID(req.param("id"));

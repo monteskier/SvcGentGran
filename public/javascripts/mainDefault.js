@@ -40,6 +40,10 @@ angularApp.controller('MainDefaultController', ['$scope', '$location', '$rootSco
     $log.log('Pagina canviada a :'+$scope.currentPage);
   };
 
+  $scope.ferGran = function(id){
+      $rootScope.id = id;
+      $location.path("/detall");
+  };
 
 }]).config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider){
   'use strict';
@@ -47,7 +51,7 @@ angularApp.controller('MainDefaultController', ['$scope', '$location', '$rootSco
 
   $routeProvider.when('/detall',{
     templateUrl:"templates/public/detall.html",
-    controller:"public/SeleccioController"
+    controller:"public/detallController"
   });
 
 
