@@ -32,6 +32,10 @@ ul.center{
   margin-right: auto;
   display: block;
 }
+.right{
+  margin-right: 0px;
+
+}
 #containerPost{
   margin-left: auto;
   margin-right: auto;
