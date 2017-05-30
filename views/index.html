@@ -30,10 +30,10 @@
       <div class="postItem">
         <p class="textDesc">{{post.description}}</p>
         <uib-accordion close-others="oneAtATime">
-          <div uib-accordion-group  heading="Lleguir més:">
+          <div cursor="pointer" uib-accordion-group  heading="Lleguir més:">
             <p class="textBody">{{post.body}}</p>
           </div>
-          <div uib-accordion-group  heading="Fitxers Adjunts:" class="file">
+          <div cursor="pointer" uib-accordion-group  heading="Fitxers Adjunts:" class="file">
             <small><a href="{{post.file}}">{{post.filename}}</a></small><br>
             <small><a href="{{post.file2}}">{{post.filename2}}</a></small>
           </div>
@@ -42,6 +42,9 @@
     </div>
     <ul class="center" uib-pagination total-items="totalItems" ng-model="currentPage" boundary-links="true" items-per-page="itemsPerPage" ng-change="pageChanged()"></ul uib-pagination>
   </div>
+  <footer class="footer">Plaça de l'Ajuntament, 10 - 08295 Sant Vicenç de Castellet | T. 936 930 611 - F. 936 930 610 - <strong>svcastellet@svc.cat</strong>.
+    <img src="lib/img/gentGran.jpg"></img>
+  </footer>
   </body>
   <script src="javascripts/mainDefault.js"></script>
 </html>
