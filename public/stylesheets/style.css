@@ -47,8 +47,8 @@ ul.center{
   margin-right: auto;
   display: flex;
   flex-flow:column;
-  justify-content: flex-start;
   width: 80%;
+  justify-content: flex-start;
 
   }.post{
     display:flex;
@@ -58,14 +58,19 @@ ul.center{
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
+    padding:5px;
   }.postItem .textDesc{
     text-align: justify;
-    font-weight: bold;
   }.postItem .textBody{
     text-align: justify;
   }.postItem .file{
     font-size: 12px;
-  }
+
+}.title{
+  font-weight: bold;
+  text-align: justify;
+  font-size:20px;
+}
   .footer {
   right: 0;
   bottom: 0;
