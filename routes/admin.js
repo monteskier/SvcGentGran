@@ -13,10 +13,24 @@ function login(req){//Reviso que haya una session activada , cada ruta lo compru
 router.get('/', function(req, res, next) {
   res.render('admin/index', { title: 'Express' });
 });
+router.post('/posarOrd', function(req, res, next){
+  var db = req.db;
+  var collection = db.get("posts");
+  var objId = new ObjectID(req.param("id"));
+  var ord = req.param("ord");
+
+  collection.update({_id:objId},{$set:{
+    "ord": ord
+  }},function(err, doc){
+    if(err){
+      res.json({"msg":"No sa pogut actualitzar l'ordre dek l'article, err ="+ err.message});
+    }
+    res.json({"msg":"S'ha dessat l'ordre correctament"});
+  });
+
+});
 router.post('/getPost', function(req,res,err){//obtiene todos los parametros de un Post i los devuelve al templete editar.html
     if(login(req)){
-
-
       var db = req.db;
       var collection = db.get("posts");
       var objId = new ObjectID(req.param("id"));
@@ -113,7 +127,7 @@ router.get("/llista",function(req, res, next){
   var db = req.db;
   var collection = db.get("posts");
 
-  collection.find({},{sort:{'date_pub': -1}},function(err,docs){
+  collection.find({},{sort:{'ord': 1}},function(err,docs){
     if(err){
       res.json({"msg":"error en recuperar els articles"});
     }

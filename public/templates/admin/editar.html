@@ -2,6 +2,10 @@
 <div ng-controller="EditarController" ng-init="carregarDades()">
 <form id="contenedo" method="post"  enctype="multipart/form-data">
     <div class="form-group">
+      <label for="title">* Ordre:</label>
+      <input type="text" class="form-control" id="ord" ng-model="post.ord" placeholder="Ordre" />
+    </div>
+    <div class="form-group">
       <label for="title">* Titol:{{post.title}}</label>
       <input type="text" class="form-control" id="title" ng-model="post.title" placeholder="Introdueix el titol" />
     </div>

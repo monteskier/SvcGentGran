@@ -9,9 +9,20 @@ angular.module("gentGran")
     });
   };
   $scope.editar = function(id){
-  $rootScope.objId = id;
-  $location.path("/editar");
+    $rootScope.objId = id;
+    $location.path("/editar");
   }
+  $scope.posarOrd = function(id, ord){
+    $http({
+      method:"post",
+      url:"admin/posarOrd",
+      data:{"id":id, "ord":ord}
+    }).then(function(request){
+      $rootScope.msg = request.data.msg;
+      $rootScope.flag=true;
+      $scope.obtindreResultats();
+    });
+  };
   $scope.eliminar = function(id, img=null, file=null, file2=null){
     $http({
       method:"POST",

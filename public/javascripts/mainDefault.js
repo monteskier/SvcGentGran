@@ -49,9 +49,29 @@ angularApp.controller('MainDefaultController', ['$scope', '$location', '$rootSco
   'use strict';
   $locationProvider.html5Mode('true');
 
-  $routeProvider.when('/detall',{
-    templateUrl:"templates/public/detall.html",
-    controller:"public/detallController"
+  $routeProvider.when('/seleccio',{
+    templateUrl:"templates/public/selccio.html",
+    controller:"seleccioController"
+  });
+
+  $routeProvider.when('/ajuntament',{
+    templateUrl:"templates/public/ajuntament/index",
+    controller:"ajuntamentController"
+  });
+
+  $routeProvider.when('/municipi',{
+    templateUrl:"templates/public/municipi/index",
+    controller:"municipiController"
+  });
+
+  $routeProvider.when('/serveis',{
+    templateUrl:"templates/public/serveis/index",
+    controller:"serveisController"
+  });
+
+  $routeProvider.when('/seue',{
+    templateUrl:"templates/public/serveis/seue",
+    controller:"seueController"
   });
 
 
