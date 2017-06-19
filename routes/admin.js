@@ -127,7 +127,7 @@ router.get("/llista",function(req, res, next){
   var db = req.db;
   var collection = db.get("posts");
 
-  collection.find({},{sort:{'ord': 1}},function(err,docs){
+  collection.find({},{sort:{'ord': -1}},function(err,docs){
     if(err){
       res.json({"msg":"error en recuperar els articles"});
     }

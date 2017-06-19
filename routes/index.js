@@ -11,7 +11,7 @@ router.post('/getAllElements', function(req, res, next){
   var db = req.db;
   var collection = db.get("posts");
 
-  collection.find({"activate":true},{sort:{"ord": 1}}, function(err, docs){
+  collection.find({"activate":true},{sort:{"ord": -1}}, function(err, docs){
     if(err){
       res.json({"msg":"Error al descarregar les dades, err="+err.message});
     }
