@@ -66,6 +66,7 @@ ul.center{
     justify-content: flex-start;
     padding:5px;
   }.postItem .textDesc{
+    font-size:17px;
     text-align: justify;
   }.postItem .textBody{
     text-align: justify;
