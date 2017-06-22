@@ -23,7 +23,7 @@
   <div id="containerPost">
     <div ng-repeat="post in posts.slice(((currentPage-1)*5),((currentPage)*5))" class="post">
         <div class="postItem">
-        <p cursor="pointer"><a href="{{post.img}}"><img src="{{post.img}}" width="150px" height="100px" /></a></p>
+        <p cursor="pointer"><a href="{{post.img}}"><img src="{{post.img}}" with="150px" height="100px"></img></a></p>
         <small>data:{{post.date_pub}}</small>
       </div>
       <div class="postItem">
