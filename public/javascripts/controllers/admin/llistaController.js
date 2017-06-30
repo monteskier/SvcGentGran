@@ -16,7 +16,7 @@ angular.module("gentGran")
     $http({
       method:"post",
       url:"admin/posarOrd",
-      data:{"id":id, "ord":ord}
+      data:{"id":id, "ord":parseInt(ord)}
     }).then(function(request){
       $rootScope.msg = request.data.msg;
       $rootScope.flag=true;
