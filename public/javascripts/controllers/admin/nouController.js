@@ -11,7 +11,7 @@ angular.module("gentGran")
   fd.append('image', image[0]);
   fd.append('file', file[0]);
   fd.append('file2', file2[0]);
-  fd.post.ord = parseInt(fd.post.ord);
+  
 
   $http({
     method:"POST",

@@ -174,6 +174,7 @@ router.post('/save', function(req, res, next){
       "img":'upload/images/'+ (img.name !== undefined ? img.name : "undefined"),
       "file":'upload/files/'+ (file.name !== undefined ? file.name : "undefined"),
       "file2":'upload/files/'+ (file2.name !== undefined ? file2.name : "undefined"),
+      "ord": parseInt(post.ord),
       "body":post.body,
       "activate":post.active,
       "date_pub": req.moment(Date.now()).format('MM/DD/YYYY'),
