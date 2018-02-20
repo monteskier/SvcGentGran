@@ -65,6 +65,7 @@ ul.center{
     flex-flow: column;
     justify-content: flex-start;
     padding:5px;
+    max-width:900px;
   }.postItem .textDesc{
     font-size:17px;
     text-align: justify;
